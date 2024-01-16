@@ -11,7 +11,7 @@ api = Api(app)
 
 app.config.from_object('config.Config')
 
-connect(host=app.config['MONGODB_HOST'])
+connect(host=app.config['MONGODB_URI'])
 
 #Endpoints
 api.add_resource(InvestmentSimulationResource, '/investment_simulations')
