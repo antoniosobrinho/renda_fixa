@@ -43,8 +43,8 @@ class InvestmentSimulationResource(Resource):
             "total_interest": total_interest
         }
 
-        investment_simulation = InvestmentSimulation(**data)
+        investment_simulation = InvestmentSimulation(**data, final_amount=final_amount)
         investment_simulation.save()
 
-        return response_data
+        return response_data, 200
     
