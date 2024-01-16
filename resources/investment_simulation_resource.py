@@ -1,10 +1,8 @@
 from flask_restful import Resource
 from flask import request
-from db.config import db
 from schemas.investment_simulation_schema import InvestmentSimulationSchema
+from models.investment_simulation import InvestmentSimulation
 from utils.investment_utils import InvestmentUtils
-
-investment_simulation_collection = db['investment_simulations']
 
 class InvestmentSimulationResource(Resource):
 
@@ -45,9 +43,8 @@ class InvestmentSimulationResource(Resource):
             "total_interest": total_interest
         }
 
-        investment_simulation_id = investment_simulation_collection.insert_one(
-                                                                    {'data': data}
-                                                                ).inserted_id
+        investment_simulation = InvestmentSimulation(**data)
+        investment_simulation.save()
 
         return response_data
     

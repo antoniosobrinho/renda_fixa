@@ -11,7 +11,7 @@ services:
     depends_on:
       - mongo
     environment:
-      - MONGO_URI=mongodb://root:root@mongo:27017/investment_database?authSource=admin
+      - MONGODB_HOST=mongodb://root:root@mongo:27017/
   mongo:
     image: mongo:7-jammy
     restart: always

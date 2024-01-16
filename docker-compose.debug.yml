@@ -12,7 +12,7 @@ services:
       - 5678:5678
     environment:
       - FLASK_APP=app.py
-      - MONGO_URI=mongodb://root:root@mongo:27017/investment_database?authSource=admin
+      - MONGODB_HOST=mongodb://root:root@mongo:27017/
     depends_on:
       - mongo
   mongo:
