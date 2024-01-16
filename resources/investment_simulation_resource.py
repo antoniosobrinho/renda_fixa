@@ -45,9 +45,9 @@ class InvestmentSimulationResource(Resource):
             "total_interest": total_interest
         }
 
-        # investment_simulation_id = investment_simulation_collection.insert_one(
-        #                                                             {'data': json_data}
-        #                                                         ).inserted_id
+        investment_simulation_id = investment_simulation_collection.insert_one(
+                                                                    {'data': data}
+                                                                ).inserted_id
 
         return response_data
     
