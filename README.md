@@ -17,6 +17,6 @@ Simulador de Investimentos de Renda Fixa
   <li>docker-compose run rendafixa python -m unittest</li>
 </ul>
 
-<h1>Documenta do sistema</h1>
+<h1>Documentação do sistema</h1>
 
 <p>Com a aplicação executando, acesse a url <b>localhost:5002/apidocs/</b> no seu navegador para visualizar a documentação da api</p>
