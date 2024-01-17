@@ -26,7 +26,7 @@ class TestInvestmentSimulationResource(SetUpTest):
         investment_utils = InvestmentUtils()
         
         final_amount = investment_utils.calculate_compound_interest(
-            data['initial_value'], data['monthly_interest_rate'], 
+            data['initial_value'], data['monthly_interest_rate']/100, 
             data['months_invested'], data['monthly_investment']
         )
 
