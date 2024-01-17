@@ -5,18 +5,35 @@ import psutil
 class HealthCheckResource(Resource):
 
     def get(self):
-
+        """
+        Get an health check of the api
+        ---
+        responses:
+            200:
+                description: Investment insights
+                schema:
+                    properties:
+                        database_status:
+                            type: string
+                            description: checks if database is connect
+                        memory_percent:
+                            type: number
+                            description: percent of memory used
+                        disk_percent:
+                            type: number
+                            description: percent of disk used
+        """
         try:
-            mongo_health = {'mongo': 'OK' if InvestmentSimulation.objects.first() else 'NOT OK'}
+            database_status = 'On' if InvestmentSimulation.objects.first() else 'NOT OK'
 
-            memory_health = {'memory_percent': psutil.virtual_memory().percent}
+            memory_percent =  psutil.virtual_memory().percent
 
-            disk_health = {'disk_percent': psutil.disk_usage('/').percent}
+            disk_percent = psutil.disk_usage('/').percent
 
             health_data = {
-                'mongo': mongo_health,
-                'memory': memory_health,
-                'disk': disk_health
+                'database_status': database_status,
+                'memory_percent': memory_percent,
+                'disk_percent': disk_percent
             }
 
             return health_data, 200
