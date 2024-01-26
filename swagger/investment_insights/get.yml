@@ -1,0 +1,21 @@
+responses:
+  200:
+    description: Investment insights
+    schema:
+      type: object
+      properties:
+        with_max_final_amount:
+          type: number
+          description: Simulation with maximum final amount
+        with_min_final_amount:
+          type: number
+          description: Simulation with minimum final amount
+        avg_final_amount:
+          type: number
+          description: Average final amount of all simulations
+        with_max_monthly_investment:
+          type: number
+          description: Simulation with maximum monthly investment
+        with_min_monthly_investment:
+          type: number
+          description: Simulation with minimum monthly investment
