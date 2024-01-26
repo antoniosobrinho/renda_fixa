@@ -7,8 +7,25 @@ class InvestmentSimulationService(InvestmentSimulationServiceInterface):
 
     def __init__(self, repository: InvestmentSimulationRepositoryInterface) -> None:
         self.repository = repository
+    
+    def get_investment_values(self, investment_data:dict) -> dict:
+        
+        simulation = self.__create_simulate_investment(investment_data)
 
-    def simulate_investment(self, investment_data:dict) -> InvestmentSimulationModel:
+        total_invested = (simulation.initial_value + 
+                          simulation.monthly_investment * 
+                          simulation.months_invested)
+        total_interest = round((simulation.final_amount - total_invested),2)
+
+        investment_values = {
+            "final_amount": simulation.final_amount,
+            "total_invested": total_invested,
+            "total_interest": total_interest
+        }
+
+        return investment_values
+        
+    def __create_simulate_investment(self, investment_data:dict) -> InvestmentSimulationModel:
 
         initial_value = investment_data['initial_value']
         monthly_interest_rate = investment_data['monthly_interest_rate']
@@ -28,23 +45,6 @@ class InvestmentSimulationService(InvestmentSimulationServiceInterface):
         simulation = self.repository.create_simulation(investment_data)
 
         return simulation
-    
-    def get_simulations_insights(self) -> dict:
-        
-        with_max_final_amount = self.repository.get_document_with_max_final_amount().to_json()
-        with_min_final_amount = self.repository.get_document_with_min_final_amount().to_json()
-        avg_final_amount = self.repository.get_average_final_amount()
-        with_max_monthly_investment = self.repository.get_document_with_max_monthly_investment().to_json()
-        with_min_monthly_investment = self.repository.get_document_with_min_monthly_investment().to_json()
-
-        
-        return {
-            'with_max_final_amount' : json.loads(with_max_final_amount),
-            'with_min_final_amount' : json.loads(with_min_final_amount),
-            'avg_final_amount' : avg_final_amount,
-            'with_max_monthly_investment' : json.loads(with_max_monthly_investment),
-            'with_min_monthly_investment' : json.loads(with_min_monthly_investment)
-            }
     
     def __calculate_compound_interest(
             self, 

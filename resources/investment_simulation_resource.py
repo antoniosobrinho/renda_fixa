@@ -22,18 +22,7 @@ class InvestmentSimulationResource(Resource):
             InvestmentSimulationRepository()
         )
 
-        simulation = simulation_service.simulate_investment(data)
+        response_data = simulation_service.get_investment_values(data)
         
-        total_invested = (simulation.initial_value + 
-                          simulation.monthly_investment * 
-                          simulation.months_invested)
-        total_interest = round((simulation.final_amount - total_invested),2)
-
-        response_data = {
-            "final_amount": simulation.final_amount,
-            "total_invested": total_invested,
-            "total_interest": total_interest
-        }
-
         return response_data, 201
     
