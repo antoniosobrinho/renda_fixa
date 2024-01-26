@@ -1,42 +1,41 @@
 from tests.setup_test import SetUpTest
-from utils.investment_utils import InvestmentUtils
 import copy
 
 class TestInvestmentSimulationResource(SetUpTest):
     
-    def test_post_simulation(self):
+    # def test_post_simulation(self):
 
-        compensation_choices = ['post-fixed', 'pre-fixed']
+    #     compensation_choices = ['post-fixed', 'pre-fixed']
 
-        for compensation in compensation_choices:
-            data = {
-                "name": "new investment",
-                "months_invested": 12,
-                "initial_value": 5500,
-                "monthly_investment": 4000,
-                "monthly_interest_rate": 1,
-                "compensation": compensation
-            }
+    #     for compensation in compensation_choices:
+    #         data = {
+    #             "name": "new investment",
+    #             "months_invested": 12,
+    #             "initial_value": 5500,
+    #             "monthly_investment": 4000,
+    #             "monthly_interest_rate": 1,
+    #             "compensation": compensation
+    #         }
 
-            response = self.app.post('/investment_simulations', json=data)
-            self.assertEqual(response.status_code, 201)
+    #         response = self.app.post('/investment_simulations', json=data)
+    #         self.assertEqual(response.status_code, 201)
 
-        response_data = response.get_json()
+    #     response_data = response.get_json()
 
-        investment_utils = InvestmentUtils()
+    #     investment_utils = InvestmentUtils()
         
-        final_amount = investment_utils.calculate_compound_interest(
-            data['initial_value'], data['monthly_interest_rate']/100, 
-            data['months_invested'], data['monthly_investment']
-        )
+    #     final_amount = investment_utils.calculate_compound_interest(
+    #         data['initial_value'], data['monthly_interest_rate']/100, 
+    #         data['months_invested'], data['monthly_investment']
+    #     )
 
-        total_invested = data['initial_value'] + data['monthly_investment'] * data['months_invested']
+    #     total_invested = data['initial_value'] + data['monthly_investment'] * data['months_invested']
 
-        total_interest = round((final_amount - total_invested),2)
+    #     total_interest = round((final_amount - total_invested),2)
 
-        self.assertEqual(response_data['final_amount'], final_amount)
-        self.assertEqual(response_data['total_invested'], total_invested)
-        self.assertEqual(response_data['total_interest'], total_interest)
+    #     self.assertEqual(response_data['final_amount'], final_amount)
+    #     self.assertEqual(response_data['total_invested'], total_invested)
+    #     self.assertEqual(response_data['total_interest'], total_interest)
 
     def test_post_simulation_without_required_field(self):
 

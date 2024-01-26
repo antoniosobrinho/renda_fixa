@@ -1,8 +1,7 @@
 import unittest
 from mongomock import MongoClient
 from app import app
-from models.investment_simulation import InvestmentSimulation
-from utils.investment_utils import InvestmentUtils
+from models.investment_simulation import InvestmentSimulationModel
 from random import randint, random
 
 class SetUpTest(unittest.TestCase):

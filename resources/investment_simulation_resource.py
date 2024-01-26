@@ -74,10 +74,10 @@ class InvestmentSimulationResource(Resource):
 
         simulation = simulation_service.simulate_investment(data)
         
-        total_interest = round((simulation.final_amount - simulation.total_invested),2)
         total_invested = (simulation.initial_value + 
                           simulation.monthly_investment * 
                           simulation.months_invested)
+        total_interest = round((simulation.final_amount - total_invested),2)
 
         response_data = {
             "final_amount": simulation.final_amount,
@@ -85,5 +85,5 @@ class InvestmentSimulationResource(Resource):
             "total_interest": total_interest
         }
 
-        return jsonify(response_data), 201
+        return response_data, 201
     

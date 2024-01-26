@@ -1,5 +1,5 @@
 from flask_restful import Resource
-from models.investment_simulation import InvestmentSimulation
+from models.investment_simulation import InvestmentSimulationModel
 import psutil
 
 class HealthCheckResource(Resource):
@@ -24,7 +24,7 @@ class HealthCheckResource(Resource):
                             description: percent of disk used
         """
         try:
-            database_status = 'On' if InvestmentSimulation.objects.first() else 'NOT OK'
+            database_status = 'On' if InvestmentSimulationModel.objects.first() else 'NOT OK'
 
             memory_percent =  psutil.virtual_memory().percent
 

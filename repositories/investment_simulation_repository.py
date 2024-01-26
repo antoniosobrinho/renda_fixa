@@ -1,5 +1,5 @@
 from models.investment_simulation import InvestmentSimulationModel
-from i_investment_simulation_respository import InvestmentSimulationRepositoryInterface
+from repositories.i_investment_simulation_respository import InvestmentSimulationRepositoryInterface
 
 class InvestmentSimulationRepository(InvestmentSimulationRepositoryInterface):
 
@@ -9,26 +9,26 @@ class InvestmentSimulationRepository(InvestmentSimulationRepositoryInterface):
         
         return average_final_amount
 
-    def get_document_with_max_final_amount(self):
+    def get_document_with_max_final_amount(self) -> InvestmentSimulationModel:
 
         with_max_amount = InvestmentSimulationModel.objects.order_by('-final_amount').first()
 
         return with_max_amount
 
-    def get_document_with_min_final_amount(self):
+    def get_document_with_min_final_amount(self) -> InvestmentSimulationModel:
 
         with_min_amount = InvestmentSimulationModel.objects.order_by('final_amount').first()
 
         return with_min_amount
 
-    def get_document_with_max_monthly_investment(self):
+    def get_document_with_max_monthly_investment(self) -> InvestmentSimulationModel:
 
         with_monthly_investment = InvestmentSimulationModel.objects.order_by('-monthly_investment').first()
 
         return with_monthly_investment
 
     
-    def get_document_with_min_monthly_investment(self):
+    def get_document_with_min_monthly_investment(self) -> InvestmentSimulationModel:
 
         with_monthly_investment = InvestmentSimulationModel.objects.order_by('monthly_investment').first()
 
