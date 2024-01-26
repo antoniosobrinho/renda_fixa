@@ -1,8 +1,9 @@
 from flask_restful import Resource
-from flask import request
+from flask import request, jsonify
+from marshmallow import ValidationError
 from schemas.investment_simulation_schema import InvestmentSimulationSchema
-from models.investment_simulation import InvestmentSimulation
-from utils.investment_utils import InvestmentUtils
+from services.investment_simulation_service import InvestmentSimulationService
+from repositories.investment_simulation_repository import InvestmentSimulationRepository
 
 class InvestmentSimulationResource(Resource):
 
@@ -61,42 +62,28 @@ class InvestmentSimulationResource(Resource):
         """
 
         data = request.get_json() 
-        if not data:
-            return {'error': 'Invalid JSON format'}, 400
-
         simulation_schema = InvestmentSimulationSchema()
-        errors = simulation_schema.validate(data)
+        try:
+            simulation_schema.load(data)
+        except ValidationError as e:
+            return jsonify({"erro": str(e)}), 400
 
-        if errors:
-            return {'error': 'Validation error', 'message': errors}, 400
-
-        initial_value = data['initial_value']
-        monthly_interest_rate = data['monthly_interest_rate']
-        months_invested = data['months_invested']
-        monthly_investment = data['monthly_investment']
-
-        #percent
-        monthly_interest_rate = monthly_interest_rate/100
-        
-        investment_utils = InvestmentUtils()
-
-        final_amount = investment_utils.calculate_compound_interest(
-            initial_value, monthly_interest_rate, 
-            months_invested, monthly_investment
+        simulation_service = InvestmentSimulationService(
+            InvestmentSimulationRepository()
         )
-        
-        total_invested = initial_value + monthly_investment * months_invested
 
-        total_interest = round((final_amount - total_invested),2)
+        simulation = simulation_service.simulate_investment(data)
+        
+        total_interest = round((simulation.final_amount - simulation.total_invested),2)
+        total_invested = (simulation.initial_value + 
+                          simulation.monthly_investment * 
+                          simulation.months_invested)
 
         response_data = {
-            "final_amount": final_amount,
+            "final_amount": simulation.final_amount,
             "total_invested": total_invested,
             "total_interest": total_interest
         }
 
-        investment_simulation = InvestmentSimulation(**data, final_amount=final_amount)
-        investment_simulation.save()
-
-        return response_data, 201
+        return jsonify(response_data), 201
     
