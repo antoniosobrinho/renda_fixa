@@ -8,7 +8,7 @@ from repositories.investment_simulation_repository import InvestmentSimulationRe
 
 class InvestmentSimulationResource(Resource):
 
-    @swag_from('../swagger/swagger.yml')
+    @swag_from('../swagger/investment_simulations/post.yml')
     def post(self):
         
         data = request.get_json() 
