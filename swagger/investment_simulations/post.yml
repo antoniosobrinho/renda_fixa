@@ -1,3 +1,4 @@
+summary: "Post an investment simulation"
 swagger: "2.0"
 parameters:
   - name: name

@@ -1,0 +1,16 @@
+summary: "Health Check Endpoint"
+responses:
+  200:
+    description: "Investment insights"
+    schema:
+      type: object
+      properties:
+        database_status:
+          type: string
+          description: "Checks if the database is connected"
+        memory_percent:
+          type: number
+          description: "Percent of memory used"
+        disk_percent:
+          type: number
+          description: "Percent of disk used"

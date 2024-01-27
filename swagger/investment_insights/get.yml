@@ -1,4 +1,5 @@
-responses:
+summary: "Get investrment insights"
+esponses:
   200:
     description: Investment insights
     schema:
