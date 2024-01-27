@@ -1,7 +1,6 @@
 from repositories.i_investment_simulation_respository import InvestmentSimulationRepositoryInterface
 from models.investment_simulation import InvestmentSimulationModel
 from services.i_investment_simulation_service import InvestmentSimulationServiceInterface
-import json
 
 class InvestmentSimulationService(InvestmentSimulationServiceInterface):
 
