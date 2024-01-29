@@ -17,8 +17,7 @@ class HealthCheckService(HealthCheckInterface):
     def __get_data_base_health(self) -> str:
 
         try:
-            connection = get_connection()
-            connection.server_info() 
+            get_connection().server_info()
             db_status = 'connected'
         except Exception as e:
              db_status = 'down'
