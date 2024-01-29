@@ -1,5 +1,5 @@
 from models.investment_simulation import InvestmentSimulationModel
-from repositories.i_investment_simulation_respository import InvestmentSimulationRepositoryInterface
+from repositories.interfaces.i_investment_simulation_respository import InvestmentSimulationRepositoryInterface
 
 class InvestmentSimulationRepository(InvestmentSimulationRepositoryInterface):
 

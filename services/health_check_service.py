@@ -1,4 +1,4 @@
-from services.i_health_check_service import HealthCheckInterface
+from services.interfaces.i_health_check_service import HealthCheckInterface
 from mongoengine.connection import get_connection
 import psutil
 
