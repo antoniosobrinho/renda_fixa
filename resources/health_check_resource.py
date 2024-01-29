@@ -8,7 +8,7 @@ class HealthCheckResource(Resource):
  
         service = HealthCheckService()
 
-        health_data = service.get_heal_check()
+        health_data = service.get_health_check()
         
         return health_data, 200
      
