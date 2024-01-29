@@ -1,6 +1,8 @@
 # For more information, please refer to https://aka.ms/vscode-docker-python
 FROM python:3.10-slim
 
+RUN apt-get update && apt-get install gcc python3-dev -y
+
 EXPOSE 5002
 
 # Keeps Python from generating .pyc files in the container
