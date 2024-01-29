@@ -6,10 +6,24 @@ class HealthCheckService(HealthCheckInterface):
 
     def get_health_check(self) -> dict:
         
+        memory_percent =  self.__get_memory_percent()
+        if memory_percent >= 80:
+            memory_warnning = 'Limite de uso de memória saúdavel atingido'
+        else:
+            memory_warnning = 'Memória saúdavel'
+
+        disk_percent = self.__get_dict_usage_percent()
+        if disk_percent >= 80:
+            disk_warnning = 'Limite de uso de disco saúdavel atingido'
+        else:
+            disk_warnning = 'Disco saúdavel'
+
         health_data = {
             'database_status': self.__get_data_base_health(),
-            'memory_percent': self.__get_memory_percent(),
-            'disk_percent': self.__get_dict_usage_percent()
+            'memory_percent': memory_percent,
+            'memory_warnning': memory_warnning,
+            'disk_percent': disk_percent,
+            'disk_warnning': disk_warnning
         }
 
         return health_data
